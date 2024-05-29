@@ -106,23 +106,27 @@ async def generate_investment_suggestion(fundamental_data, quarterly_results_dat
     """
 
     prompt = f"""
-    Analyze the following fundamental and quarterly results data for a stock:
+    Analyze the following fundamental and quarterly results data for a stock, along with recent news headlines.
 
-    Fundamental Data:
-    {fundamental_data}
+    **Fundamental Data:**
+    [IF {fundamental_data} IS PROVIDED, USE IT. ELSE, GENERATE SAMPLE FUNDAMENTAL DATA HERE, e.g., EPS, P/E ratio, revenue growth, etc.]
 
-    Quarterly Results:
-    {quarterly_results_data}
+    **Quarterly Results:**
+    [IF {quarterly_results_data} IS PROVIDED, USE IT. ELSE, GENERATE SAMPLE QUARTERLY RESULTS DATA HERE, e.g., revenue, net income, EPS, etc.]
 
-    News Titles:
-    {news_titles}
+    **News Headlines:**
+    [IF {news_titles} IS PROVIDED, USE IT. ELSE, GENERATE SAMPLE NEWS HEADLINES HERE, e.g., Company X announces new product, Company X beats earnings estimates, etc.]
 
-    For each news headline, describe its potential impact in one line, including the source, link, and timing.
-    Provide a concise investment suggestion (Buy, Hold, Sell) and a brief justification based on the analysis of fundamental results and news and show the precentange and nummber if possible.
+    **Tasks:**
+    1. **News Impact:** For each news headline, describe its potential impact in one line, including the source (if available), and timing.
+    2. **Investment Suggestion:** Provide a concise investment recommendation (Buy, Hold, Sell) and a brief justification based on the analysis of fundamental results and news sentiment. Include relevant percentage changes and numerical data where applicable.
 
-    This analysis should help in making an informed investment decision by considering both financial performance and recent market sentiment.
+    **Additional Considerations:**
 
-     """
+    * If fundamental/quarterly data is missing, use reasonable estimates or industry averages for comparison.
+    * Prioritize accuracy and relevance in your analysis. If data is insufficient, indicate so and suggest further research.
+    * Consider the broader economic context and industry trends when making your investment suggestion.
+    """
      # or other appropriate model
     response = await get_chat_response(chat,
         prompt
